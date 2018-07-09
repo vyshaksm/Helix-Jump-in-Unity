@@ -1004,8 +1004,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: add39f821050bd3468048da5359d6bb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpStrength: 0.36
-  gravityForce: 0.98
+  jumpStrength: 0.88
+  gravityForce: 1.6
 --- !u!1001 &1952250208
 Prefab:
   m_ObjectHideFlags: 0
