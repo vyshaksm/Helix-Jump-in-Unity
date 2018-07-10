@@ -32,13 +32,12 @@ public class Ball : MonoBehaviour {
 
 		vel -= gravityForce * Time.deltaTime;
 
-		float bouncedVel = nextBallPosToJump - (transform.position.y + vel);
-		if (bouncedVel >= 0) {
-			transform.Translate(Vector3.up * (vel + 2 * bouncedVel));
+		float overlap = nextBallPosToJump - (transform.position.y + vel);
+		if (overlap >= 0) {
+			transform.Translate(Vector3.up * (vel + overlap));
 			CheckCollision();
 		}
-		else
-			transform.Translate(Vector3.up * vel);
+		transform.Translate(Vector3.up * vel);
 	}
 
 	void CheckCollision() {
@@ -48,7 +47,7 @@ public class Ball : MonoBehaviour {
 			if (hit.collider.CompareTag("Good")) {
 				if (skippedCounter >= 2) {
 					// TODO: Apply good-looking break force.
-					if(hit.collider.transform.parent.CompareTag("Cylinder Object")) {
+					if (hit.collider.transform.parent.CompareTag("Cylinder Object")) {
 						Destroy(hit.collider.gameObject);
 					}
 					else {
