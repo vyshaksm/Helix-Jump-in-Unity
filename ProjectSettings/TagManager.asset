@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Good
   - Bad
+  - Cylinder Object
   layers:
   - Default
   - TransparentFX

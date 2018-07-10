@@ -34,10 +34,6 @@ public class Ball : MonoBehaviour {
 
 		float bouncedVel = nextBallPosToJump - (transform.position.y + vel);
 		if (bouncedVel >= 0) {
-			Debug.Log("vel: " + vel);
-			Debug.Log("Bounced vel: " +bouncedVel);
-			Debug.Log(vel + 2 * bouncedVel);
-
 			transform.Translate(Vector3.up * (vel + 2 * bouncedVel));
 			CheckCollision();
 		}
@@ -45,14 +41,19 @@ public class Ball : MonoBehaviour {
 			transform.Translate(Vector3.up * vel);
 	}
 
-	// TODO: Make sure Jump was called only once.
 	void CheckCollision() {
 		RaycastHit hit;
 		if (Physics.Raycast(transform.position, Vector3.down, out hit, cylinder.distanceBtwCircles / 2,
 			LayerMask.GetMask("Circles"))) {
 			if (hit.collider.CompareTag("Good")) {
 				if (skippedCounter >= 2) {
-					// Apply break force.
+					// TODO: Apply good-looking break force.
+					if(hit.collider.transform.parent.CompareTag("Cylinder Object")) {
+						Destroy(hit.collider.gameObject);
+					}
+					else {
+						Destroy(hit.collider.transform.parent.gameObject);
+					}
 				}
 
 				skippedCounter = 0;
@@ -74,8 +75,6 @@ public class Ball : MonoBehaviour {
 		else {
 			++skippedCounter;
 			nextBallPosToJump -= cylinder.distanceBtwCircles;
-
-			Debug.Log("No Collider.");
 		}
 	}
 
