@@ -45,10 +45,13 @@ public class Ball : MonoBehaviour {
 		if (Physics.Raycast(transform.position, Vector3.down, out hit, cylinder.distanceBtwCircles / 2,
 			LayerMask.GetMask("Circles"))) {
 			if (hit.collider.CompareTag("Good")) {
+				SoundManager.instance.PlaySound(SoundManager.Sounds.Bounce);
 				if (skippedCounter >= 2) {
 					// TODO: Apply good-looking break force.
 					if (hit.collider.transform.parent.CompareTag("Cylinder Object")) {
 						Destroy(hit.collider.gameObject);
+						SoundManager.instance.PlaySound(SoundManager.Sounds.BlockBreak);
+						ScoreManager.instance.CollectCoint(1);
 					}
 					else {
 						Destroy(hit.collider.transform.parent.gameObject);
@@ -62,6 +65,7 @@ public class Ball : MonoBehaviour {
 			else if (hit.collider.CompareTag("Bad")) {
 				Debug.Log("END GAME.");
 				SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+				SoundManager.instance.PlaySound(SoundManager.Sounds.EndGame);
 			}
 			else if (hit.collider.CompareTag("Finish")) {
 				Debug.Log("YOU WON.");
